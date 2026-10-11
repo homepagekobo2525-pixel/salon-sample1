@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>森時間 | NATURAL HAIR ATELIER</title>
+<meta name="description" content="髪を、木々が育つ速度で。植物由来のケアと静かな時間をお届けするナチュラルヘアサロン「森時間」。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Shippori+Mincho:wght@400;500;600;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3F1E7;
+    --bg2:#EAE7D8;
+    --card:#FBFAF5;
+    --ink:#3A362E;
+    --ink-soft:#6B6558;
+    --sage:#6B7856;
+    --sage-deep:#4E5D45;
+    --sage-dark:#2F3A2B;
+    --wood:#A8916B;
+    --clay:#8B5E4A;
+    --line:rgba(58,54,46,.14);
+    --ease:cubic-bezier(.22,.8,.24,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.9;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  /* paper grain */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.35;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  h1,h2,h3,.serif{font-family:'Shippori Mincho',serif;letter-spacing:.04em;}
+  .en{font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:.04em;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  section{padding:128px 0;position:relative;}
+  .eyebrow{font-size:12px;letter-spacing:.32em;color:var(--sage);font-weight:500;display:flex;align-items:center;gap:12px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--sage);}
+  .section-head{margin-bottom:60px;}
+  .section-head h2{font-size:clamp(26px,4vw,38px);font-weight:600;margin-top:16px;line-height:1.6;}
+  .section-head .en{display:block;font-size:clamp(40px,7vw,76px);color:rgba(107,120,86,.18);line-height:1;margin-bottom:-18px;}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(34px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease);}
+  .rv.in{opacity:1;transform:none;}
+  .rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+
+  /* loader */
+  .loader{position:fixed;inset:0;z-index:300;background:var(--sage-dark);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;transition:opacity .9s ease .2s,visibility .9s ease .2s;}
+  .loader.done{opacity:0;visibility:hidden;}
+  .loader svg{width:64px;height:90px;}
+  .loader svg path{fill:none;stroke:#E8E5D3;stroke-width:1.4;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.6s ease forwards;}
+  .loader span{color:#E8E5D3;font-size:13px;letter-spacing:.5em;opacity:0;animation:fade 1s ease .8s forwards;}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes fade{to{opacity:1}}
+
+  /* header */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:22px 36px;transition:all .5s var(--ease);}
+  header.solid{background:rgba(243,241,231,.88);backdrop-filter:blur(10px);padding:14px 36px;border-bottom:1px solid var(--line);}
+  .logo{font-family:'Shippori Mincho',serif;font-size:22px;font-weight:600;letter-spacing:.14em;display:flex;align-items:baseline;gap:10px;}
+  .logo small{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--sage);letter-spacing:.1em;}
+  nav ul{list-style:none;display:flex;gap:34px;align-items:center;}
+  nav a{font-size:13px;letter-spacing:.14em;position:relative;padding:4px 0;}
+  nav a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--sage);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease);}
+  nav a:hover::after{transform:scaleX(1);transform-origin:left;}
+  nav .reserve-link{border:1px solid var(--sage-deep);padding:9px 22px;color:var(--sage-deep);transition:all .4s;}
+  nav .reserve-link::after{display:none;}
+  nav .reserve-link:hover{background:var(--sage-deep);color:#F7F5EC;}
+  .burger{display:none;width:44px;height:44px;background:none;border:none;cursor:pointer;position:relative;z-index:120;}
+  .burger span{position:absolute;left:10px;right:10px;height:1px;background:var(--ink);transition:all .4s var(--ease);}
+  .burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:26px}
+  .burger.open span:nth-child(1){top:21px;transform:rotate(30deg)}
+  .burger.open span:nth-child(2){top:21px;transform:rotate(-30deg)}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:12px;padding:17px 38px;background:var(--sage-deep);color:#F7F5EC;border:1px solid var(--sage-deep);font-size:14px;letter-spacing:.14em;transition:all .4s var(--ease);position:relative;overflow:hidden;cursor:pointer;font-family:inherit;}
+  .btn::after{content:"→";transition:transform .4s var(--ease);}
+  .btn:hover{background:transparent;color:var(--sage-deep);}
+  .btn:hover::after{transform:translateX(6px);}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+  .btn.ghost:hover{border-color:var(--ink);}
+  .btn.light{background:#F3F1E7;color:var(--sage-dark);border-color:#F3F1E7;}
+  .btn.light:hover{background:transparent;color:#F3F1E7;}
+
+  /* hero */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;padding:0;background:
+      radial-gradient(ellipse at 15% 20%,rgba(107,120,86,.16),transparent 55%),
+      radial-gradient(ellipse at 90% 85%,rgba(168,145,107,.22),transparent 50%),var(--bg);overflow:hidden;}
+  .hero-text{padding:150px 24px 90px 8vw;position:relative;z-index:2;}
+  .hero .tag{font-size:12px;letter-spacing:.4em;color:var(--sage-deep);margin-bottom:34px;display:flex;align-items:center;gap:14px;}
+  .hero .tag::before{content:"";width:34px;height:1px;background:var(--sage-deep);}
+  .hero h1{font-size:clamp(32px,4.6vw,64px);font-weight:600;line-height:1.4;margin-bottom:28px;}
+  .hero h1 .line{display:block;overflow:hidden;white-space:nowrap;padding-bottom:.08em;}
+  .hero h1 .line span{display:inline-block;transform:translateY(110%);transition:transform 1.3s var(--ease);}
+  body.ready .hero h1 .line span{transform:none;}
+  body.ready .hero h1 .line:nth-child(2) span{transition-delay:.18s;}
+  .hero .lead{max-width:460px;color:var(--ink-soft);font-size:15.5px;margin-bottom:46px;opacity:0;transition:opacity 1.4s ease .9s;}
+  body.ready .hero .lead,body.ready .hero .cta-row{opacity:1;}
+  .hero .cta-row{display:flex;gap:16px;flex-wrap:wrap;opacity:0;transition:opacity 1.4s ease 1.1s;}
+  .hero-art{position:relative;height:100vh;min-height:640px;}
+  .arch{position:absolute;border-radius:999px 999px 0 0;overflow:hidden;}
+  .arch.a1{right:11%;top:16%;width:min(330px,28vw);height:min(500px,56vh);background:linear-gradient(170deg,#8E9C74,#4E5D45);}
+  .arch.a2{right:calc(11% + min(260px,22vw));top:34%;width:min(220px,18vw);height:min(340px,38vh);background:linear-gradient(170deg,#CDB992,#A8916B);}
+  .arch svg{position:absolute;inset:0;width:100%;height:100%;}
+  .sun{position:absolute;right:6%;top:9%;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#F1E2B9,rgba(241,226,185,0) 70%);filter:blur(2px);}
+  .vertical{position:absolute;right:2.2vw;top:18%;writing-mode:vertical-rl;font-family:'Shippori Mincho',serif;font-size:14px;letter-spacing:.5em;color:var(--ink-soft);}
+  .scroll-cue{position:absolute;bottom:30px;left:8vw;display:flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.28em;color:var(--ink-soft);}
+  .scroll-cue .stem{width:60px;height:1px;background:var(--line);position:relative;overflow:hidden;}
+  .scroll-cue .stem::after{content:"";position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--sage);animation:slide 2.6s ease-in-out infinite;}
+  @keyframes slide{to{left:100%}}
+  .leaf{position:absolute;pointer-events:none;will-change:transform;}
+  .leaf path{stroke-dasharray:600;stroke-dashoffset:600;animation:draw 3s ease forwards 1.2s;}
+
+  /* marquee */
+  .marquee{background:var(--sage-dark);color:#DAD7C4;overflow:hidden;padding:20px 0;border-block:1px solid rgba(255,255,255,.1);}
+  .marquee .track{display:flex;width:max-content;animation:mq 38s linear infinite;}
+  .marquee span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;padding:0 34px;white-space:nowrap;}
+  .marquee span::after{content:"✦";margin-left:68px;font-style:normal;font-size:12px;color:var(--wood);vertical-align:middle;}
+  @keyframes mq{to{transform:translateX(-50%)}}
+
+  /* concept */
+  .concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center;}
+  .concept-visual{position:relative;aspect-ratio:4/5;}
+  .cv-main{position:absolute;inset:0 18% 12% 0;border-radius:2px;background:linear-gradient(165deg,#9AA682,#566649 60%,#3F4D38);overflow:hidden;}
+  .cv-sub{position:absolute;right:0;bottom:0;width:48%;aspect-ratio:1;background:linear-gradient(150deg,#D8C7A2,#A8916B);border:10px solid var(--bg);}
+  .cv-main svg,.cv-sub svg{position:absolute;inset:0;width:100%;height:100%;}
+  .concept p{color:var(--ink-soft);font-size:15.5px;margin-top:20px;max-width:460px;}
+  .concept .sign{margin-top:34px;display:flex;align-items:center;gap:16px;font-size:13px;color:var(--ink-soft);}
+  .concept .sign .en{font-size:28px;color:var(--sage-deep);}
+
+  /* reasons */
+  .reasons{background:var(--card);border-block:1px solid var(--line);}
+  .reason-list{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+  .reason{padding:44px 38px;border-right:1px solid var(--line);position:relative;transition:background .6s;}
+  .reason:last-child{border-right:none;}
+  .reason:hover{background:var(--bg);}
+  .reason .num{font-family:'Cormorant Garamond',serif;font-size:64px;line-height:1;color:rgba(107,120,86,.35);font-style:italic;}
+  .reason h3{font-size:20px;margin:18px 0 12px;font-weight:600;}
+  .reason p{color:var(--ink-soft);font-size:14px;}
+
+  /* menu */
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:44px;border-bottom:1px solid var(--line);}
+  .tab{background:none;border:none;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;letter-spacing:.14em;padding:14px 26px;cursor:pointer;color:var(--ink-soft);position:relative;transition:color .3s;}
+  .tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--sage-deep);transform:scaleX(0);transition:transform .5s var(--ease);}
+  .tab[aria-selected="true"]{color:var(--sage-deep);font-weight:700;}
+  .tab[aria-selected="true"]::after{transform:scaleX(1);}
+  .panel{display:none;animation:panelIn .7s var(--ease);}
+  .panel.active{display:block;}
+  @keyframes panelIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .menu-row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:22px 0;border-bottom:1px dashed var(--line);align-items:baseline;}
+  .menu-row .name{font-family:'Shippori Mincho',serif;font-size:19px;}
+  .menu-row .name small{display:block;font-family:'Zen Kaku Gothic New',sans-serif;font-size:12.5px;color:var(--ink-soft);margin-top:4px;}
+  .menu-row .price{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--sage-deep);font-variant-numeric:tabular-nums;}
+  .menu-note{margin-top:26px;font-size:12.5px;color:var(--ink-soft);}
+  .menu-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:start;}
+  .menu-aside{position:sticky;top:110px;}
+  .menu-aside p{color:var(--ink-soft);font-size:14.5px;margin-top:20px;}
+
+  /* style gallery */
+  .gallery{background:var(--sage-dark);color:#E8E5D3;}
+  .gallery .section-head .en{color:rgba(232,229,211,.12);}
+  .gallery .eyebrow{color:#B9C4A0;}.gallery .eyebrow::before{background:#B9C4A0;}
+  .g-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:14px;}
+  .g-item{position:relative;overflow:hidden;cursor:pointer;}
+  .g-item.tall{grid-row:span 2;}.g-item.wide{grid-column:span 2;}
+  .g-item .bg{position:absolute;inset:0;transition:transform 1.4s var(--ease);}
+  .g-item:hover .bg{transform:scale(1.08);}
+  .g-item .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 20px 16px;background:linear-gradient(0deg,rgba(20,26,18,.7),transparent);transform:translateY(40%);opacity:0;transition:all .6s var(--ease);font-size:13px;letter-spacing:.1em;}
+  .g-item:hover .cap{transform:none;opacity:1;}
+  .g-item svg{position:absolute;inset:0;width:100%;height:100%;opacity:.55;}
+  .gallery .note{margin-top:30px;font-size:12px;color:rgba(232,229,211,.55);}
+  .g1 .bg{background:linear-gradient(160deg,#C9B38B,#8E7650)}
+  .g2 .bg{background:linear-gradient(160deg,#8A9873,#4F5E45)}
+  .g3 .bg{background:linear-gradient(160deg,#B58E78,#7A5240)}
+  .g4 .bg{background:linear-gradient(160deg,#DCD3B6,#A9A07F)}
+  .g5 .bg{background:linear-gradient(160deg,#6F7F63,#34402F)}
+  .g6 .bg{background:linear-gradient(160deg,#BFA87F,#7C6A47)}
+
+  /* stylist */
+  .stylist-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center;}
+  .portrait{aspect-ratio:4/5;border-radius:999px 999px 2px 2px;background:linear-gradient(170deg,#CDB992,#7C8B66);position:relative;overflow:hidden;}
+  .portrait svg{position:absolute;inset:0;width:100%;height:100%;}
+  blockquote{font-family:'Shippori Mincho',serif;font-size:clamp(22px,3vw,30px);line-height:1.8;margin:18px 0 26px;}
+  .stylist-grid .bio{color:var(--ink-soft);font-size:14.5px;}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:38px;padding-top:30px;border-top:1px solid var(--line);}
+  .facts b{display:block;font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:500;color:var(--sage-deep);line-height:1.1;}
+  .facts span{font-size:12px;color:var(--ink-soft);letter-spacing:.08em;}
+
+  /* voice */
+  .voice{background:var(--bg2);}
+  .voice-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 28px 30px;margin:0 -28px;scrollbar-width:thin;scrollbar-color:var(--wood) transparent;}
+  .voice-card{flex:0 0 min(380px,82vw);scroll-snap-align:start;background:var(--card);padding:38px 34px;border:1px solid var(--line);position:relative;}
+  .voice-card::before{content:"“";font-family:'Cormorant Garamond',serif;font-size:90px;color:rgba(107,120,86,.25);position:absolute;top:6px;left:22px;line-height:1;}
+  .voice-card p{position:relative;font-size:14.5px;color:var(--ink);margin-top:24px;}
+  .voice-card .who{margin-top:22px;font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:12px;}
+  .voice-card .who i{width:34px;height:34px;border-radius:50%;background:linear-gradient(150deg,var(--wood),var(--sage));display:inline-block;}
+  .voice .note{font-size:12px;color:var(--ink-soft);margin-top:6px;}
+
+  /* faq */
+  .faq-list{max-width:820px;}
+  details{border-bottom:1px solid var(--line);}
+  summary{list-style:none;cursor:pointer;padding:26px 50px 26px 0;font-family:'Shippori Mincho',serif;font-size:18px;position:relative;}
+  summary::-webkit-details-marker{display:none;}
+  summary::before{content:"Q";font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sage);margin-right:16px;font-size:22px;}
+  summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:24px;color:var(--sage-deep);transition:transform .5s var(--ease);font-family:'Cormorant Garamond',serif;}
+  details[open] summary::after{transform:translateY(-50%) rotate(45deg);}
+  details p{padding:0 0 28px 38px;color:var(--ink-soft);font-size:14.5px;}
+
+  /* reserve */
+  .reserve{background:var(--sage-dark);color:#E8E5D3;text-align:center;overflow:hidden;}
+  .reserve .big{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(50px,11vw,150px);color:rgba(232,229,211,.08);line-height:1;position:absolute;left:50%;top:40px;transform:translateX(-50%);white-space:nowrap;pointer-events:none;}
+  .reserve h2{font-size:clamp(26px,4vw,40px);position:relative;line-height:1.7;}
+  .reserve p{margin:22px auto 44px;max-width:480px;color:#C9C6B3;font-size:14.5px;position:relative;}
+  .reserve .cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;}
+  .reserve .btn.ghost{color:#E8E5D3;border-color:rgba(232,229,211,.4);}
+  .reserve .btn.ghost:hover{border-color:#E8E5D3;background:transparent;color:#fff;}
+
+  /* access */
+  .access-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;}
+  .map{aspect-ratio:16/11;border:1px solid var(--line);background:
+      repeating-linear-gradient(0deg,rgba(58,54,46,.06) 0 1px,transparent 1px 38px),
+      repeating-linear-gradient(90deg,rgba(58,54,46,.06) 0 1px,transparent 1px 38px),var(--card);
+    position:relative;display:flex;align-items:center;justify-content:center;}
+  .map .pin{width:22px;height:22px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--clay);position:relative;}
+  .map .pin::after{content:"";position:absolute;inset:6px;border-radius:50%;background:#FBFAF5;}
+  .map .pulse{position:absolute;width:22px;height:22px;border-radius:50%;background:rgba(139,94,74,.35);animation:pulse 2.4s ease-out infinite;transform:translateY(12px);}
+  @keyframes pulse{to{transform:translateY(12px) scale(5);opacity:0}}
+  .map small{position:absolute;bottom:14px;right:16px;font-size:11px;color:var(--ink-soft);letter-spacing:.1em;}
+  dl .row{display:flex;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);}
+  dt{width:86px;flex-shrink:0;font-size:13px;color:var(--sage-deep);letter-spacing:.1em;}
+  dd{font-size:14.5px;}
+
+  footer{padding:70px 0 130px;text-align:center;border-top:1px solid var(--line);}
+  footer .serif{font-size:26px;letter-spacing:.2em;}
+  footer .en{color:var(--sage);margin:6px 0 24px;font-size:16px;}
+  footer small{color:var(--ink-soft);font-size:12px;}
+
+  .fixed-cta{position:fixed;bottom:0;left:0;right:0;z-index:90;display:flex;justify-content:center;gap:12px;padding:12px 16px;background:rgba(251,250,245,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .6s var(--ease);}
+  .fixed-cta.show{transform:none;}
+  .fixed-cta .btn{padding:13px 24px;font-size:13px;flex:1;max-width:240px;justify-content:center;}
+
+  :focus-visible{outline:2px solid var(--sage-deep);outline-offset:3px;}
+
+  @media (max-width:900px){
+    section{padding:84px 0;}
+    header,header.solid{padding:12px 20px;}
+    .burger{display:block;}
+    nav{position:fixed;inset:0;background:var(--sage-dark);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .5s var(--ease);z-index:110;}
+    nav.open{opacity:1;visibility:visible;}
+    nav ul{flex-direction:column;gap:28px;text-align:center;}
+    nav a{color:#E8E5D3;font-size:17px;}
+    nav .reserve-link{border-color:#E8E5D3;color:#E8E5D3;}
+    body.menu-open .burger span{background:#E8E5D3;}
+    body.menu-open .logo{position:relative;z-index:120;color:#E8E5D3;}
+    .hero{grid-template-columns:1fr;}
+    .hero-text{padding:120px 24px 20px;}
+    .hero-art{height:52vh;min-height:360px;}
+    .arch.a1{width:44vw;height:44vh;right:12%;top:6%}
+    .arch.a2{width:30vw;height:28vh;right:calc(12% + 38vw);top:22%}
+    .vertical,.scroll-cue{display:none;}
+    .concept-grid,.stylist-grid,.access-grid,.menu-wrap{grid-template-columns:1fr;gap:48px;}
+    .menu-aside{position:static;}
+    .reason-list{grid-template-columns:1fr;}
+    .reason{border-right:none;border-bottom:1px solid var(--line);padding:34px 8px;}
+    .g-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px;}
+    .g-item.wide{grid-column:span 2;}
+    .portrait{max-width:300px;}
+    .tab{padding:12px 16px;font-size:13px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;}
+    .rv{opacity:1;transform:none;}
+    .hero h1 .line span{transform:none;}
+    .hero .lead,.hero .cta-row{opacity:1;}
+    .leaf path,.loader svg path{stroke-dashoffset:0;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <svg viewBox="0 0 64 90"><path d="M32 4C10 22 4 50 32 86C60 50 54 22 32 4Z"/><path d="M32 16V74"/></svg>
+  <span class="serif">森時間</span>
+</div>
+
+<header id="header">
+  <a href="#top" class="logo">森時間<small>morijikan</small></a>
+  <button class="burger" id="burger" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span></button>
+  <nav id="nav">
+    <ul>
+      <li><a href="#concept">コンセプト</a></li>
+      <li><a href="#menu">メニュー</a></li>
+      <li><a href="#style">スタイル</a></li>
+      <li><a href="#stylist">スタイリスト</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+      <li><a href="#access">アクセス</a></li>
+      <li><a href="#reserve" class="reserve-link">ご予約</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="tag">NATURAL HAIR ATELIER</div>
+    <h1 aria-label="髪を、木々が育つ速度で。">
+      <span class="line"><span>髪を、</span></span>
+      <span class="line"><span>木々が育つ速度で。</span></span>
+    </h1>
+    <p class="lead">切りすぎない、変えすぎない。今日のあなたの延長線上に、少しだけ心地よさを足すサロンです。植物由来のケア剤と、静かな時間だけがここにあります。</p>
+    <div class="cta-row">
+      <a href="#reserve" class="btn">ご予約はこちら</a>
+      <a href="#menu" class="btn ghost">メニューを見る</a>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="arch a2">
+      <svg viewBox="0 0 220 340" preserveAspectRatio="xMidYMid slice"><g stroke="#FBFAF5" stroke-width="1" fill="none" opacity=".55"><path d="M110 40V340"/><path d="M110 110C80 120 55 145 40 180M110 110C140 120 165 145 180 180M110 200C78 212 52 240 38 280M110 200C142 212 168 240 182 280"/></g></svg>
+    </div>
+    <div class="arch a1">
+      <svg viewBox="0 0 330 500" preserveAspectRatio="xMidYMid slice"><g stroke="#FBFAF5" stroke-width="1" fill="none" opacity=".5"><path d="M165 60C90 140 70 300 165 500"/><path d="M165 60C240 140 260 300 165 500"/><path d="M165 90V500"/><path d="M165 180C130 190 100 220 82 262M165 180C200 190 230 220 248 262M165 300C125 315 95 350 78 400M165 300C205 315 235 350 252 400"/></g></svg>
+    </div>
+    <svg class="leaf" style="top:14%;left:4%;width:110px;" viewBox="0 0 100 140" fill="none"><path d="M50 5C20 30 10 70 50 135C90 70 80 30 50 5Z" stroke="#4E5D45" stroke-width="1.2"/><path d="M50 20V120" stroke="#4E5D45" stroke-width=".9"/></svg>
+    <svg class="leaf" style="bottom:7%;right:12%;width:130px;transform:scaleX(-1);" viewBox="0 0 100 140" fill="none"><path d="M50 5C20 30 10 70 50 135C90 70 80 30 50 5Z" stroke="#A8916B" stroke-width="1.2"/><path d="M50 20V120" stroke="#A8916B" stroke-width=".9"/></svg>
+    <div class="vertical">木々のように、ゆっくりと。</div>
+  </div>
+  <div class="scroll-cue"><span>SCROLL</span><div class="stem"></div></div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Slow hair, slow life</span><span>Botanical care</span><span>Quiet time</span><span>Hair atelier morijikan</span>
+    <span>Slow hair, slow life</span><span>Botanical care</span><span>Quiet time</span><span>Hair atelier morijikan</span>
+  </div>
+</div>
+
+<!-- CONCEPT -->
+<section class="concept" id="concept">
+  <div class="wrap concept-grid">
+    <div class="concept-visual rv" aria-hidden="true">
+      <div class="cv-main">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g stroke="#FBFAF5" fill="none" opacity=".45"><path d="M200 40C120 120 90 240 200 460C310 240 280 120 200 40Z"/><path d="M200 90V420"/><path d="M200 160C160 180 130 210 110 250M200 160C240 180 270 210 290 250M200 260C155 280 120 320 100 370M200 260C245 280 280 320 300 370" stroke-width=".7"/></g></svg>
+      </div>
+      <div class="cv-sub">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="28" fill="none" stroke="#FBFAF5" stroke-width=".8" opacity=".6"/><circle cx="50" cy="50" r="14" fill="none" stroke="#FBFAF5" stroke-width=".8" opacity=".6"/></svg>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow rv">CONCEPT</div>
+      <h2 class="rv d1" style="font-size:clamp(26px,4vw,38px);margin-top:16px;line-height:1.7;">整えるのではなく、<br>手入れをする。</h2>
+      <p class="rv d2">森時間という名前には、「髪も庭のように、時間をかけて手入れするもの」という思いを込めました。トレンドを追いかけるより、あなたの髪と地肌が本来持つ調子を取り戻すことを大切にしています。</p>
+      <p class="rv d2">店内で使用するシャンプーやカラー剤は、できる限り植物由来・低刺激のものを選定。施術中は、木と漆喰の香りに包まれながら、ゆっくりと深呼吸できる時間をお過ごしください。</p>
+      <div class="sign rv d3"><span class="en">Morijikan</span><span>オーナースタイリスト 一同</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section class="reasons" id="reasons">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="en rv">Three promises</span>
+      <div class="eyebrow rv">OUR PROMISE</div>
+      <h2 class="rv d1">森時間が大切にしている3つのこと</h2>
+    </div>
+    <div class="reason-list">
+      <div class="reason rv"><div class="num">01</div><h3>一人ひとりに、1席だけ。</h3><p>予約は1枠につき1名様のみ。他のお客様の視線や声を気にせず、ご自身の時間に集中していただけます。</p></div>
+      <div class="reason rv d1"><div class="num">02</div><h3>植物由来の薬剤選び。</h3><p>髪と地肌への負担を抑えるため、カラー・パーマ・ケア剤は成分を吟味して選んでいます。敏感肌の方もご相談ください。</p></div>
+      <div class="reason rv d2"><div class="num">03</div><h3>家でも再現できる仕上がり。</h3><p>帰宅後の朝にも整うよう、乾かし方・スタイリングのコツまで丁寧にお伝えします。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="wrap menu-wrap">
+    <div class="menu-aside">
+      <div class="section-head" style="margin-bottom:0">
+        <span class="en rv">Menu</span>
+        <div class="eyebrow rv">MENU &amp; PRICE</div>
+        <h2 class="rv d1">メニュー・料金</h2>
+      </div>
+      <p class="rv d2">すべてのメニューにシャンプー・ブロー・簡単なホームケア相談が含まれます。カウンセリング時にお髪の状態を拝見し、最適な内容をご提案します。</p>
+    </div>
+    <div class="rv d1">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-t="cut">CUT</button>
+        <button class="tab" role="tab" aria-selected="false" data-t="color">COLOR</button>
+        <button class="tab" role="tab" aria-selected="false" data-t="treat">CARE</button>
+        <button class="tab" role="tab" aria-selected="false" data-t="perm">PERM</button>
+      </div>
+      <div class="panel active" id="p-cut">
+        <div class="menu-row"><span class="name">カット<small>シャンプー・ブロー込み</small></span><span class="price">¥6,600</span></div>
+        <div class="menu-row"><span class="name">カット + ヘッドスパ<small>+20分の頭皮ケア付き</small></span><span class="price">¥9,900</span></div>
+        <div class="menu-row"><span class="name">前髪カット<small>ご来店の合間にも</small></span><span class="price">¥1,650</span></div>
+      </div>
+      <div class="panel" id="p-color">
+        <div class="menu-row"><span class="name">植物由来カラー<small>全体染め</small></span><span class="price">¥9,900〜</span></div>
+        <div class="menu-row"><span class="name">グレイカラー<small>白髪をやさしくぼかす</small></span><span class="price">¥8,800〜</span></div>
+        <div class="menu-row"><span class="name">ハイライト・ブリーチ<small>ケアブリーチ使用</small></span><span class="price">¥13,200〜</span></div>
+      </div>
+      <div class="panel" id="p-treat">
+        <div class="menu-row"><span class="name">プレミアムトリートメント<small>ダメージ補修</small></span><span class="price">¥6,600</span></div>
+        <div class="menu-row"><span class="name">頭皮ケアスパ<small>60分・アロマ選択可</small></span><span class="price">¥4,400</span></div>
+        <div class="menu-row"><span class="name">髪質改善コース<small>カット込みのフルケア</small></span><span class="price">¥15,400</span></div>
+      </div>
+      <div class="panel" id="p-perm">
+        <div class="menu-row"><span class="name">ナチュラルパーマ<small>やわらかな動き</small></span><span class="price">¥11,000〜</span></div>
+        <div class="menu-row"><span class="name">縮毛矯正<small>自然なストレート</small></span><span class="price">¥16,500〜</span></div>
+      </div>
+      <p class="menu-note">※ 表示は税込です。髪の長さ・量により追加料金がかかる場合があります。</p>
+    </div>
+  </div>
+</section>
+
+<!-- STYLE GALLERY -->
+<section class="gallery" id="style">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="en rv">Style</span>
+      <div class="eyebrow rv">STYLE</div>
+      <h2 class="rv d1">スタイルギャラリー</h2>
+    </div>
+    <div class="g-grid">
+      <div class="g-item g1 tall rv"><div class="bg"></div><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><path d="M50 10C30 30 25 60 50 95C75 60 70 30 50 10Z" fill="none" stroke="#FBFAF5" stroke-width=".5"/></svg><div class="cap">Soft bob — やわらかボブ</div></div>
+      <div class="g-item g2 rv d1"><div class="bg"></div><div class="cap">Natural long — ナチュラルロング</div></div>
+      <div class="g-item g3 wide rv d2"><div class="bg"></div><div class="cap">Warm brown — 植物由来カラー</div></div>
+      <div class="g-item g4 rv d1"><div class="bg"></div><div class="cap">Short — 大人ショート</div></div>
+      <div class="g-item g5 tall rv d2"><div class="bg"></div><svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><path d="M50 10C30 30 25 60 50 95C75 60 70 30 50 10Z" fill="none" stroke="#FBFAF5" stroke-width=".5"/></svg><div class="cap">Perm — ゆるふわパーマ</div></div>
+      <div class="g-item g6 rv"><div class="bg"></div><div class="cap">Care — 艶髪ケア</div></div>
+    </div>
+    <p class="note">※ サンプル用のイメージ表示です。実際のサロン制作時は施術写真に差し替えます。</p>
+  </div>
+</section>
+
+<!-- STYLIST -->
+<section id="stylist">
+  <div class="wrap stylist-grid">
+    <div class="portrait rv" aria-hidden="true">
+      <svg viewBox="0 0 300 375" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="#FBFAF5" opacity=".5"><circle cx="150" cy="150" r="46"/><path d="M60 375C60 280 100 230 150 230C200 230 240 280 240 375"/></g></svg>
+    </div>
+    <div>
+      <div class="eyebrow rv">OWNER STYLIST</div>
+      <blockquote class="rv d1">「上手に手放すことも、<br>髪のためだと思っています。」</blockquote>
+      <p class="bio rv d2">美容師歴15年。都内サロン勤務を経て、自然のリズムに寄り添う一人サロン「森時間」を開業。少人数制で、お一人お一人とじっくり向き合う施術を大切にしています。ご自宅での扱いやすさを何より大切に考え、「次の朝に感動してもらえること」を目標にしています。</p>
+      <div class="facts rv d3">
+        <div><b>15</b><span>YEARS EXPERIENCE</span></div>
+        <div><b>1:1</b><span>PRIVATE SEAT</span></div>
+        <div><b>90%</b><span>REPEAT CLIENTS</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section class="voice" id="voice">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="en rv">Voice</span>
+      <div class="eyebrow rv">VOICE</div>
+      <h2 class="rv d1">お客様の声</h2>
+    </div>
+    <div class="voice-track rv">
+      <div class="voice-card"><p>敏感肌でカラーがずっと不安でしたが、頭皮の状態を見ながら進めてくださって安心でした。香りもよくて、施術中に眠ってしまいました。</p><div class="who"><i></i>30代・会社員</div></div>
+      <div class="voice-card"><p>朝のスタイリングが本当に楽になりました。乾かし方まで教えてもらえるので、家でもサロン帰りの状態が続きます。</p><div class="who"><i></i>40代・主婦</div></div>
+      <div class="voice-card"><p>他のお客さんがいない貸切のような空間で、美容院が苦手だった私でも落ち着いて過ごせました。</p><div class="who"><i></i>20代・デザイナー</div></div>
+      <div class="voice-card"><p>無理におすすめされることがなく、「今日はここまでで大丈夫」と言ってくれる誠実さが好きです。</p><div class="who"><i></i>50代・自営業</div></div>
+    </div>
+    <p class="note">※ サンプル用の架空のコメントです。</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="en rv">FAQ</span>
+      <div class="eyebrow rv">FAQ</div>
+      <h2 class="rv d1">よくあるご質問</h2>
+    </div>
+    <div class="faq-list rv">
+      <details><summary>初めてでも予約できますか?</summary><p>もちろんです。初回はカウンセリングにお時間をいただきますので、少し余裕をもってお越しください。</p></details>
+      <details><summary>敏感肌ですが、カラーはできますか?</summary><p>植物由来の薬剤を中心にご用意しています。事前にパッチテストをおすすめしておりますので、ご予約時にお知らせください。</p></details>
+      <details><summary>お子様連れでも大丈夫ですか?</summary><p>1席のみの個室に近い空間のため、静かに過ごせるお子様であれば同伴いただけます。事前にご相談ください。</p></details>
+      <details><summary>支払い方法は何がありますか?</summary><p>現金・各種クレジットカード・QRコード決済に対応しています。</p></details>
+      <details><summary>キャンセルはいつまで可能ですか?</summary><p>前日の18時までにご連絡いただければ、キャンセル料はかかりません。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVE -->
+<section class="reserve" id="reserve">
+  <div class="big" aria-hidden="true">Reservation</div>
+  <div class="wrap">
+    <h2 class="rv">静かな時間を、<br>ご予約ください。</h2>
+    <p class="rv d1">LINEからは24時間受付中です。メニューのご相談だけでも、お気軽にどうぞ。</p>
+    <div class="cta-row rv d2">
+      <a href="#" class="btn light">LINEで予約する</a>
+      <a href="tel:0300000000" class="btn ghost">電話で予約する</a>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESS -->
+<section id="access">
+  <div class="wrap access-grid">
+    <div class="map rv" aria-label="地図（Googleマップ埋め込み予定）"><div class="pulse"></div><div class="pin"></div><small>GOOGLE MAP</small></div>
+    <div>
+      <div class="eyebrow rv">ACCESS</div>
+      <h2 class="rv d1" style="margin:16px 0 26px;font-size:28px;">アクセス・店舗情報</h2>
+      <dl class="rv d2">
+        <div class="row"><dt>住所</dt><dd>東京都〇〇区〇〇 1-2-3 森ビル1F</dd></div>
+        <div class="row"><dt>最寄駅</dt><dd>〇〇駅 徒歩5分</dd></div>
+        <div class="row"><dt>電話</dt><dd>03-0000-0000</dd></div>
+        <div class="row"><dt>営業時間</dt><dd>10:00 – 19:00(最終受付 18:00)</dd></div>
+        <div class="row"><dt>定休日</dt><dd>毎週火曜・第3水曜</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="serif">森時間</div>
+  <div class="en">natural hair atelier morijikan</div>
+  <small>© Morijikan. Sample site.</small>
+</footer>
+
+<div class="fixed-cta" id="fixedCta">
+  <a href="tel:0300000000" class="btn ghost">電話で予約</a>
+  <a href="#reserve" class="btn">LINEで予約</a>
+</div>
+
+<script>
+(function(){
+  var body=document.body, header=document.getElementById('header');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // loader
+  window.addEventListener('load',function(){
+    setTimeout(function(){
+      document.getElementById('loader').classList.add('done');
+      body.classList.add('ready');
+    }, reduce?0:1700);
+  });
+  setTimeout(function(){body.classList.add('ready');document.getElementById('loader').classList.add('done');},3500);
+
+  // reveal
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(el){io.observe(el);});
+  } else { els.forEach(function(el){el.classList.add('in');}); }
+
+  // header + fixed CTA + parallax
+  var cta=document.getElementById('fixedCta');
+  var leaves=document.querySelectorAll('.hero .leaf'), arches=document.querySelectorAll('.arch');
+  var ticking=false;
+  function onScroll(){
+    var y=window.scrollY;
+    header.classList.toggle('solid',y>40);
+    cta.classList.toggle('show',y>window.innerHeight*.7);
+    if(!reduce&&y<window.innerHeight*1.2){
+      arches.forEach(function(a,i){a.style.transform='translateY('+(y*(.06+i*.05))+'px)';});
+      leaves.forEach(function(l,i){l.style.transform=(i? 'scaleX(-1) ':'')+'translateY('+(y*-.08)+'px) rotate('+(y*.02)+'deg)';});
+    }
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(onScroll);ticking=true;}},{passive:true});
+  onScroll();
+
+  // burger
+  var burger=document.getElementById('burger'), nav=document.getElementById('nav');
+  function setMenu(o){nav.classList.toggle('open',o);burger.classList.toggle('open',o);body.classList.toggle('menu-open',o);burger.setAttribute('aria-expanded',o);}
+  burger.addEventListener('click',function(){setMenu(!nav.classList.contains('open'));});
+  nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+
+  // tabs
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(x){x.setAttribute('aria-selected','false');});
+      t.setAttribute('aria-selected','true');
+      document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+      document.getElementById('p-'+t.dataset.t).classList.add('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>
